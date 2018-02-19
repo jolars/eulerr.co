@@ -84,24 +84,20 @@ shinyServer(function(input, output, session) {
     ll$x <- euler_fit()
 
     if (!(input$fill == ""))
-      ll$fill <- gsub("^\\s+|\\s+$", "", unlist(strsplit(input$fill, ",")))
-    if (!is.null(input$title))
-      ll$main <- input$title
-    if (input$key)
-      ll$auto.key <- list(space = input$key_space)
-    ll$fontface <- switch(
-      input$fontface,
+      ll$fills$fill <- gsub("^\\s+|\\s+$", "", unlist(strsplit(input$fill, ",")))
+    if (input$legend)
+      ll$legend <- list(side = input$legend_side)
+    ll$labels$font <- switch(
+      input$font,
       Plain = 1,
       Bold = 2,
       Italic = 3,
       "Bold italic" = 4
     )
     ll$quantities <- input$quantities
-    ll$fill_alpha <- input$alpha
-    ll$lty <- switch(input$borders, Solid = 1, Varying = 1:6, None = 0)
-    ll$par.settings <- list(
-      fontsize = list(text = input$pointsize,
-                      points = ceiling(input$pointsize*2/3)))
+    ll$fills$alpha <- input$alpha
+    ll$edges$lty <- switch(input$borders, Solid = 1, Varying = 1:6, None = 0)
+    eulerr_options(pointsize = input$pointsize)
 
     do.call(plot, ll)
   })

@@ -3,11 +3,10 @@ library(eulerr)
 
 shinyUI(
   navbarPage(
-    HTML(paste0("<a href=", shQuote("http://jolars.co"), ">", "Home", "</a>")),
-    windowTitle = "eulerr",
+    "eulerr",
     inverse = TRUE,
     tabPanel(
-      "eulerr",
+      "Application",
       fluidPage(
         fluidRow(
           column(
@@ -77,11 +76,11 @@ shinyUI(
           ),
           column(
             6,
-            plotOutput("euler_diagram", height = "500px")
+            plotOutput("euler_diagram", height = "500px"),
+            textOutput("citation")
           ),
           column(
             3,
-            textInput("title", "Title", width = "100%"),
             strong("Colors"),
             em(p("A comma-separated list of ",
                  a(href = "https://stat.columbia.edu/~tzheng/files/Rcolor.pdf",
@@ -96,26 +95,23 @@ shinyUI(
               placeholder = "grey70, white, steelblue4",
               width = "100%"
             ),
-            sliderInput("alpha", "Opacity", min = 0, max = 1, value = 0.4,
-                        width = "100%"),
-            checkboxInput("quantities", "Show quantities"),
             fluidRow(
               column(
                 4,
-                checkboxInput("key", "Key")
+                checkboxInput("legend", "Legend")
               ),
               column(
                 8,
                 conditionalPanel(
-                  condition = "input.key == true",
-                  selectInput("key_space", NULL, width = "100%",
-                              list("top", "bottom", "left", "right"))
+                  condition = "input.legend == true",
+                  selectInput("legend_side", NULL, width = "100%",
+                              list("right", "left", "top", "bottom"))
                 )
               )
             ),
             radioButtons(
-              "fontface",
-              "Font face",
+              "font",
+              "Font",
               list("Plain", "Bold", "Italic", "Bold italic"),
               selected = "Bold",
               inline = TRUE
@@ -135,6 +131,9 @@ shinyUI(
               step = 1,
               width = "100%"
             ),
+            checkboxInput("quantities", "Show quantities"),
+            sliderInput("alpha", "Opacity", min = 0, max = 1, value = 1,
+                        width = "100%"),
             hr(),
             fluidRow(
               column(
@@ -229,8 +228,8 @@ shinyUI(
               p(strong(a(href = "http://larssonjohan.com",
                          "My personal website"))),
               p(strong(a(href = "https://github.com/jolars/eulerr",
-                         "The Github repository for the r package"))),
-              p(strong(a(href = "https://github.com/jolars/shiny-server",
+                         "The Github repository for the R package"))),
+              p(strong(a(href = "https://github.com/jolars/eulerr.co",
                          "The Github repository for the shiny app")))
             )
           )
@@ -245,8 +244,13 @@ shinyUI(
             6,
             offset = 3,
             wellPanel(
+              h4("2018-02-19"),
+              p(a(href = "https://github.com/jolars/eulerr/releases/tag/v4.0.0",
+                  "Updated eulerr to version 4.0.0")),
+              p("Migrated to http://eulerr.co"),
               h4("2017-11-15"),
-              p("Updated eulerr to 3.0.0, now enabling the use of ellipses."),
+              p(a(href = "https://github.com/jolars/eulerr/releases/tag/v3.0.0",
+                  "Updated eulerr to 3.0.0.")),
               p("Added option to set pointsize (mostly for fonts)."),
               p("Added settings for height and width when downloading plots."),
               h4("2017-07-30"),
