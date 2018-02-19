@@ -1,5 +1,6 @@
 ---
 output: html_document
+runtime: shiny
 ---
 
 ```{r setup, include=FALSE}
