@@ -5,7 +5,14 @@ shinyServer(function(input, output, session) {
   inserted <- c()
 
   # output citation information
-  output$cit <- renderPrint(print(citation("eulerr")))
+  eulerr_cit <- citation("eulerr")
+  # output$cit$header <- attr(eulerr_cit, "mheader")
+  output$cit <- renderPrint({
+    print(citation("eulerr"), style = "html")
+  })
+  output$bib <- renderPrint({
+    print(citation("eulerr"), style = "Bibtex")
+  })
 
   observeEvent(input$insert_set, {
     btn <- input$insert_set

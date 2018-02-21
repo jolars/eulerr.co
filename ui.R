@@ -181,7 +181,11 @@ shinyUI(
           column(
             10,
             offset = 1,
-            verbatimTextOutput("cit")
+            p(em("To cite eulerr in publications, please use:")),
+            htmlOutput("cit"),
+            br(),
+            p(em("A BibTeX entry for LaTeX users is")),
+            verbatimTextOutput("bib")
           )
         )
       )
