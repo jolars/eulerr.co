@@ -4,6 +4,9 @@ library(eulerr)
 shinyServer(function(input, output, session) {
   inserted <- c()
 
+  # output citation information
+  output$cit <- renderPrint(print(citation("eulerr")))
+
   observeEvent(input$insert_set, {
     btn <- input$insert_set
     id <- paste0("txt", btn)

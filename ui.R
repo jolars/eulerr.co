@@ -175,6 +175,18 @@ shinyUI(
       )
     ),
     tabPanel(
+      "Citation",
+      fluidPage(
+        fluidRow(
+          column(
+            10,
+            offset = 1,
+            verbatimTextOutput("cit")
+          )
+        )
+      )
+    ),
+    tabPanel(
       "Information",
       fluidPage(
         fluidRow(
