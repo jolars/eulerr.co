@@ -179,8 +179,8 @@ shinyUI(
       fluidPage(
         fluidRow(
           column(
-            10,
-            offset = 1,
+            6,
+            offset = 3,
             p(em("To cite eulerr in publications, please use:")),
             htmlOutput("cit"),
             br(),
