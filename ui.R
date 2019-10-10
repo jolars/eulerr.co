@@ -260,6 +260,9 @@ shinyUI(
             6,
             offset = 3,
             wellPanel(
+              h4("2019-10-10"),
+              p(a(href = "https://github.com/jolars/eulerr/releases/tag/v6.0.0",
+                  "Updated eulerr to version 6.0.0")),
               h4("2019-04-16"),
               p(a(href = "https://github.com/jolars/eulerr/releases/tag/v5.1.0",
                   "Updated eulerr to version 5.1.0")),
