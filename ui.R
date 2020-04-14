@@ -260,6 +260,11 @@ shinyUI(
             6,
             offset = 3,
             wellPanel(
+              h4("2020-04-14"),
+              p("Fixed a bug that causes buggy input handling in new versions",
+                "of shiny. (Thanks Sparkleunicorn9)"),
+              p(a(href = "https://github.com/jolars/eulerr/releases/tag/v6.1.0",
+                  "Updated eulerr to version 6.1.0")),
               h4("2019-10-10"),
               p(a(href = "https://github.com/jolars/eulerr/releases/tag/v6.0.0",
                   "Updated eulerr to version 6.0.0")),
