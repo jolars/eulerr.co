@@ -212,7 +212,7 @@ shinyUI(
                 a specification of set relationships but may sometimes fail
                 to display these appropriately. For instance, try giving the
                 app the specification",
-                code("A = 5, B = 3, C = 1, A&B = 2,AB&C = 2"),
+                code("A = 5, B = 3, C = 1, A&B = 2, AB&C = 2"),
                 "to see what I mean."),
               p("When this happens, eulerr tries to give an indication of how
                 badly the diagram fits the data through the metrics",
