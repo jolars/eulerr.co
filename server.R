@@ -59,6 +59,8 @@ shinyServer(function(input, output, session) {
                    function(x) input[[x]])
 
     combos <- as.vector(size, mode = "double")
+    sets   <- sets[order(names(sets))]
+    combos <- combos[order(names(size))]
 
     names(combos) <- sets
     na.omit(combos)
