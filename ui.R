@@ -14,21 +14,6 @@ shinyUI(
             wellPanel(
               p("String together combinations by joining them
                 with an ampersand (&)."),
-              radioButtons(
-                "shape",
-                "Shape",
-                c("Circle" = "circle", "Ellipse" = "ellipse"),
-                inline = TRUE
-              ),
-              splitLayout(
-                cellWidths = c("70%", "30%"),
-                radioButtons(
-                  "input_type",
-                  "Type of relationships",
-                  c("Disjoint combinations" = "disjoint", "Unions" = "union")
-                ),
-                numericInput("seed", "Seed", value = 1, width = "100%")
-              ),
               splitLayout(
                 cellWidths = c("70%", "30%"),
                 textInput("combo_1", NULL, "A"),
@@ -50,28 +35,47 @@ shinyUI(
               splitLayout(
                 actionButton("insert_set", "Insert", width = "100%"),
                 actionButton("remove_set", "Remove", width = "100%")
-              )
+              ),
+              br(),
+              radioButtons(
+                "input_type",
+                "Type of Relationships",
+                c("Disjoint combinations" = "disjoint", "Unions" = "union"),
+                inline = TRUE
+              ),
+              radioButtons(
+                "shape",
+                "Shape",
+                c("Circle" = "circle", "Ellipse" = "ellipse"),
+                inline = TRUE
+              ),
+              numericInput(
+                "seed",
+                "Random Seed",
+                value = 1,
+                min = 1
+              ),
             ),
             wellPanel(
               fluidRow(
-                column(
-                  6,
-                  strong("stress"),
-                  textOutput("stress")
-                ),
-                column(
-                  6,
-                  strong("diagError"),
-                  textOutput("diagError")
-                )
+                column(6, strong("stress"), textOutput("stress")),
+                column(6, strong("diagError"), textOutput("diagError"))
               )
-            ),
-            tableOutput("table")
+            )
           ),
           column(
             6,
-            plotOutput("euler_diagram", height = "500px"),
-            textOutput("citation")
+            tabsetPanel(
+              type = "tabs",
+              tabPanel(
+                "Plot",
+                plotOutput("euler_diagram", height = "500px")
+              ),
+              tabPanel(
+                "Fit",
+                tableOutput("table")
+              )
+            )
           ),
           column(
             3,
