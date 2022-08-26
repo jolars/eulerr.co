@@ -6,7 +6,7 @@ shinyUI(
     "eulerr",
     inverse = TRUE,
     tabPanel(
-      "Application",
+      "App",
       fluidPage(
         fluidRow(
           column(
@@ -27,12 +27,7 @@ shinyUI(
                   "Type of relationships",
                   c("Disjoint combinations" = "disjoint", "Unions" = "union")
                 ),
-                numericInput(
-                  "seed",
-                  "Seed",
-                  value = 1,
-                  width = "100%"
-                )
+                numericInput("seed", "Seed", value = 1, width = "100%")
               ),
               splitLayout(
                 cellWidths = c("70%", "30%"),
@@ -56,7 +51,7 @@ shinyUI(
                 actionButton("insert_set", "Insert", width = "100%"),
                 actionButton("remove_set", "Remove", width = "100%")
               )
-              ),
+            ),
             wellPanel(
               fluidRow(
                 column(
@@ -82,8 +77,8 @@ shinyUI(
             3,
             strong("Colors"),
             em(p("A comma-separated list of ",
-                 a(href = "https://stat.columbia.edu/~tzheng/files/Rcolor.pdf",
-                   "x11"),
+              a(href = "https://stat.columbia.edu/~tzheng/files/Rcolor.pdf",
+                "x11"),
               "or",
               a(href = "https://en.wikipedia.org/wiki/Web_colors#Hex_triplet",
                 "hex colors."))),
@@ -103,8 +98,12 @@ shinyUI(
                 8,
                 conditionalPanel(
                   condition = "input.legend == true",
-                  selectInput("legend_side", NULL, width = "100%",
-                              list("right", "left", "top", "bottom"))
+                  selectInput(
+                    "legend_side",
+                    NULL,
+                    width = "100%",
+                    list("right", "left", "top", "bottom")
+                  )
                 )
               )
             ),
@@ -132,7 +131,7 @@ shinyUI(
             ),
             checkboxInput("quantities", "Show quantities"),
             sliderInput("alpha", "Opacity", min = 0, max = 1, value = 1,
-                        width = "100%"),
+              width = "100%"),
             hr(),
             fluidRow(
               column(
@@ -174,116 +173,118 @@ shinyUI(
       )
     ),
     tabPanel(
+      "About",
+      fluidPage(
+        fluidRow(
+          column(
+            6,
+            offset = 3,
+            h1("About"),
+            h2("Area-Proportional Diagrams with eulerr"),
+            p(
+              "This",
+              a(href = "https://shiny.rstudio.com/", "shiny"),
+              "app is based on an",
+              a(href = "www.r-project.org", "R"),
+              "package that I have developed called eulerr.",
+              "It generates area-proportional euler diagrams using numerical",
+              "optimization routines."
+            ),
+            p(
+              a(href = "https://en.wikipedia.org/wiki/Euler_diagram", "Euler diagrams"),
+              "are generalized venn diagrams for which the requirement that",
+              "all intersections be present is relaxed. They are constructed",
+              "from a specification of set relationships but may sometimes",
+              "fail to display these appropriately. For instance, try giving",
+              "the app the specification",
+              code("A = 5, B = 3, C = 1, A&B = 2, AB&C = 2"),
+              "to see what I mean."
+            ),
+            p(
+              "When this happens, eulerr tries to give an indication of",
+              "how badly the diagram fits the data through the metrics",
+              em("stress"),
+              "and",
+              em("diag error."),
+              "The latter of these show the largest difference in percentage",
+              "points between the specification of any one set combination",
+              "and its resulting fit. It is the maximum value of",
+              em("region error,"),
+              "which is given for each combination. This metric has been",
+              "adopted from",
+              a(
+                href = "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0101717",
+                "a paper by Micallef and Peter Rodgers."
+              ),
+              "Stress is more difficult to explain, but I advise the",
+              "interested reader to read",
+              a(
+                "Leland Wilkinson's excellent paper",
+                href = "https://www.cs.uic.edu/~wilkinson/Publications/venneuler.pdf",
+              ),
+              "for a proper brief."
+            ),
+            p(
+              "Finally, I owe a great deal to the",
+              "aforementioned Wilkinson as well as",
+              a(href = "http://www.benfrederickson.com/", "Ben Frederickson"),
+              "whose work eulerr is inspired by."
+            ),
+            p(em("Johan Larsson")),
+            h2("Limitations in the Shiny App"),
+            p(
+              "The Shiny app that is hosted here does not completely cover",
+              "all the functionality that the R package offers.",
+              "The number of sets is for instance limited to six here",
+              "but there is no such limitation in the package.",
+              "If you want to install the R package, then you need to first",
+              a("install R.", href = "https://www.r-project.org/"),
+              "After this you can simply install the package by calling ",
+              tags$code('install.packages("eulerr")', .noWS = "outside"),
+              "."
+            ),
+            p("To read more about the R package, please visit",
+              a(
+                " the package page on CRAN",
+                href = "https://CRAN.R-project.org/package=eulerr",
+                .noWS = "outside"
+              ),
+              "."
+            ),
+            h2("Contribute"),
+            p(
+              "eulerr is an open-source project that welcomes contributions",
+              "from anyone who's willing to chip in. Please see the",
+              a(
+                "development page for the R package",
+                href = "https://github.com/jolars/eulerr"
+              ),
+              "if you are interested in taking part or just want to report",
+              "an issue with the package.",
+              "If you find any issues with this site, please visit",
+              a(
+                "the development page for the Shiny appplication",
+                href = "https://github.com/jolars/eulerr.co"
+              ),
+              "and file an issue there."
+            ),
+          ),
+        )
+      )
+    ),
+    tabPanel(
       "Citation",
       fluidPage(
         fluidRow(
           column(
             6,
             offset = 3,
-            p(em("To cite eulerr in publications, please use:")),
+            h1("Citation"),
+            p("To cite eulerr in publications, please use"),
             htmlOutput("cit"),
             br(),
-            p(em("A BibTeX entry for LaTeX users is")),
+            p("A BibTeX entry for LaTeX users is"),
             verbatimTextOutput("bib")
-          )
-        )
-      )
-    ),
-    tabPanel(
-      "Information",
-      fluidPage(
-        fluidRow(
-          column(
-            6,
-            offset = 3,
-            wellPanel(
-              h3("Area-proportional diagrams with eulerr"),
-              p("This", a(href = "https://shiny.rstudio.com/", "shiny"),
-                "app is based on an",
-                a(href = "www.r-project.org", "R"),
-                "package that I have developed called eulerr. It generates
-                area-proportional euler diagrams using some rather groovy algorithms
-                and optimization routines written in", code("R"), "and", code("C++.")),
-              p(a(href = "https://en.wikipedia.org/wiki/Euler_diagram",
-                  "euler diagrams"),
-                "are generalized venn diagrams for which the requirement that all
-                intersections be present is relaxed. They are constructed from
-                a specification of set relationships but may sometimes fail
-                to display these appropriately. For instance, try giving the
-                app the specification",
-                code("A = 5, B = 3, C = 1, A&B = 2, AB&C = 2"),
-                "to see what I mean."),
-              p("When this happens, eulerr tries to give an indication of how
-                badly the diagram fits the data through the metrics",
-                em("stress"), "and", em("diag error"), ". The latter of these
-                show the largest difference in percentage points between the specification
-                of any one set combination and its resulting fit. It is the
-                maximum value of", em("region error"), ", which is given for
-                each combination. This metric has been adopted from",
-                a(href = "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0101717", "a paper by
-                Micallef and Peter Rodgers."), "Stress is more difficult to
-                explain, but I advise the interested reader to read",
-                a(href = "https://www.cs.uic.edu/~wilkinson/Publications/venneuler.pdf",
-                  "Leland Wilkinson's excellent paper"), "for a proper brief."),
-              p("I have listed some links on the right if you are keen on
-                learning more about eulerr, perhaps even to contribute to its
-                development. Finally, I owe a great deal to the
-                aforementioned Wilkinson as well as",
-                a(href = "http://www.benfrederickson.com/", "Ben Frederickson"),
-                "whose work eulerr is built upon."),
-              br(),
-              p("Johan Larsson")
-            )
-          ),
-          column(
-            2,
-            wellPanel(
-              p(strong(a(href = "https://CRAN.R-project.org/package=eulerr",
-                         "eulerr on the R package repository CRAN"))),
-              p(strong(a(href = "http://larssonjohan.com",
-                         "My personal website"))),
-              p(strong(a(href = "https://github.com/jolars/eulerr",
-                         "The Github repository for the R package"))),
-              p(strong(a(href = "https://github.com/jolars/eulerr.co",
-                         "The Github repository for the shiny app")))
-            )
-          )
-        )
-      )
-    ),
-    tabPanel(
-      "News",
-      fluidPage(
-        fluidRow(
-          column(
-            6,
-            offset = 3,
-            wellPanel(
-              h4("2020-04-14"),
-              p("Fixed a bug that causes buggy input handling in new versions",
-                "of shiny. (Thanks Sparkleunicorn9)"),
-              p(a(href = "https://github.com/jolars/eulerr/releases/tag/v6.1.0",
-                  "Updated eulerr to version 6.1.0")),
-              h4("2019-10-10"),
-              p(a(href = "https://github.com/jolars/eulerr/releases/tag/v6.0.0",
-                  "Updated eulerr to version 6.0.0")),
-              h4("2019-04-16"),
-              p(a(href = "https://github.com/jolars/eulerr/releases/tag/v5.1.0",
-                  "Updated eulerr to version 5.1.0")),
-              h4("2018-02-19"),
-              p(a(href = "https://github.com/jolars/eulerr/releases/tag/v4.0.0",
-                  "Updated eulerr to version 4.0.0")),
-              p("Migrated to http://eulerr.co"),
-              h4("2017-11-15"),
-              p(a(href = "https://github.com/jolars/eulerr/releases/tag/v3.0.0",
-                  "Updated eulerr to 3.0.0.")),
-              p("Added option to set pointsize (mostly for fonts)."),
-              p("Added settings for height and width when downloading plots."),
-              h4("2017-07-30"),
-              p("Added the option to supply a seed to enable reproducible layouts"),
-              p(a(href = "https://github.com/jolars/eulerr/releases/tag/v2.0.0",
-                  "Updated eulerr to version 2.0.0"))
-            )
           )
         )
       )
