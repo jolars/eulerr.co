@@ -235,7 +235,7 @@ shinyUI(
             p(
               "The Shiny app that is hosted here does not completely cover",
               "all the functionality that the R package offers.",
-              "The number of sets is for instance limited to six here",
+              "The number of sets is for instance limited to five here",
               "but there is no such limitation in the package.",
               "If you want to install the R package, then you need to first",
               a("install R.", href = "https://www.r-project.org/"),

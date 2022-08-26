@@ -51,7 +51,7 @@ shinyServer(function(input, output, session) {
   })
 
   # Set up set relationships
-  combos <- reactive({
+  get_combinations <- reactive({
     sets <- sapply(
       grep("combo_", x = names(input), value = TRUE),
       function(x) input[[x]]
@@ -61,18 +61,35 @@ shinyServer(function(input, output, session) {
       function(x) input[[x]]
     )
 
-    combos <- as.vector(size, mode = "double")
-    sets   <- sets[order(names(sets))]
-    combos <- combos[order(names(size))]
+    combinations <- as.vector(size, mode = "double")
+    sets <- sets[order(names(sets))]
+    combinations <- combinations[order(names(size))]
 
-    names(combos) <- sets
-    na.omit(combos)
+    combo_names <- strsplit(sets, split = "&", fixed = TRUE)
+    setnames <- unique(unlist(combo_names, use.names = FALSE))
+    n_sets <- length(setnames)
+
+    validate(
+      need(
+        n_sets <= 5,
+        paste0(
+          "This Shiny app only allows combinations with five or fewer sets. ",
+          "Please use the R package if you need more sets."
+        )
+      )
+    )
+
+    names(combinations) <- sets
+    na.omit(combinations)
   })
 
   euler_fit <- reactive({
+    combinations <- get_combinations()
+
     set.seed(input$seed)
+
     euler(
-      combos(),
+      combinations,
       input = input$input_type,
       shape = input$shape,
       control = list(extraopt = FALSE)
