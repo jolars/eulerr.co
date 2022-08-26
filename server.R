@@ -67,8 +67,7 @@ shinyServer(function(input, output, session) {
   })
 
   euler_fit <- reactive({
-    if (input$seed != "")
-      set.seed(input$seed)
+    set.seed(input$seed)
     euler(combos(), input = input$input_type, shape = input$shape,
           control = list(extraopt = FALSE))
   })

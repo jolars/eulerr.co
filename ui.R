@@ -27,11 +27,10 @@ shinyUI(
                   "Type of relationships",
                   c("Disjoint combinations" = "disjoint", "Unions" = "union")
                 ),
-                textInput(
+                numericInput(
                   "seed",
                   "Seed",
-                  value = "",
-                  placeholder = NULL,
+                  value = 1,
                   width = "100%"
                 )
               ),
