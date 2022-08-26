@@ -6,7 +6,6 @@ shinyServer(function(input, output, session) {
 
   # output citation information
   eulerr_cit <- citation("eulerr")
-  # output$cit$header <- attr(eulerr_cit, "mheader")
   output$cit <- renderPrint({
     print(citation("eulerr"), style = "html")
   })
@@ -53,10 +52,14 @@ shinyServer(function(input, output, session) {
 
   # Set up set relationships
   combos <- reactive({
-    sets <- sapply(grep("combo_", x = names(input), value = TRUE),
-                   function(x) input[[x]])
-    size <- sapply(grep("size_", x = names(input), value = TRUE),
-                   function(x) input[[x]])
+    sets <- sapply(
+      grep("combo_", x = names(input), value = TRUE),
+      function(x) input[[x]]
+    )
+    size <- sapply(
+      grep("size_", x = names(input), value = TRUE),
+      function(x) input[[x]]
+    )
 
     combos <- as.vector(size, mode = "double")
     sets   <- sets[order(names(sets))]
@@ -68,15 +71,24 @@ shinyServer(function(input, output, session) {
 
   euler_fit <- reactive({
     set.seed(input$seed)
-    euler(combos(), input = input$input_type, shape = input$shape,
-          control = list(extraopt = FALSE))
+    euler(
+      combos(),
+      input = input$input_type,
+      shape = input$shape,
+      control = list(extraopt = FALSE)
+    )
   })
 
   output$table <- renderTable({
     f <- euler_fit()
-    df <- with(f, data.frame(Input = original.values,
-                             Fit = fitted.values,
-                             Error = regionError))
+    df <- with(
+      f,
+      data.frame(
+        Input = original.values,
+        Fit = fitted.values,
+        Error = regionError
+      )
+    )
     colnames(df) <- c("Input", "Fit", "regionError")
     df
   }, rownames = TRUE, width = "100%")
@@ -123,17 +135,24 @@ shinyServer(function(input, output, session) {
       paste0("euler-", Sys.Date(), ".", input$savetype)
     },
     content = function(file) {
-      switch(input$savetype,
-             pdf = pdf(file,
-                       width = input$width,
-                       height = input$height,
-                       pointsize = input$pointsize),
-             png = png(file, type = "cairo",
-                       width = input$width,
-                       height = input$height,
-                       pointsize = input$pointsize,
-                       units = "in",
-                       res = 300))
+      switch(
+        input$savetype,
+        pdf = pdf(
+          file,
+          width = input$width,
+          height = input$height,
+          pointsize = input$pointsize
+        ),
+        png = png(
+          file,
+          type = "cairo",
+          width = input$width,
+          height = input$height,
+          pointsize = input$pointsize,
+          units = "in",
+          res = 300
+        )
+      )
       print(euler_plot())
       dev.off()
     }
