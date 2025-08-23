@@ -96,19 +96,23 @@ shinyServer(function(input, output, session) {
     )
   })
 
-  output$table <- renderTable({
-    f <- euler_fit()
-    df <- with(
-      f,
-      data.frame(
-        Input = original.values,
-        Fit = fitted.values,
-        Error = regionError
+  output$table <- renderTable(
+    {
+      f <- euler_fit()
+      df <- with(
+        f,
+        data.frame(
+          Input = original.values,
+          Fit = fitted.values,
+          Error = regionError
+        )
       )
-    )
-    colnames(df) <- c("Input", "Fit", "regionError")
-    df
-  }, rownames = TRUE, width = "100%")
+      colnames(df) <- c("Input", "Fit", "regionError")
+      df
+    },
+    rownames = TRUE,
+    width = "100%"
+  )
 
   output$stress <- renderText({
     round(euler_fit()$stress, 2)
@@ -123,10 +127,16 @@ shinyServer(function(input, output, session) {
 
     ll$x <- euler_fit()
 
-    if (!(input$fill == ""))
-      ll$fills$fill <- gsub("^\\s+|\\s+$", "", unlist(strsplit(input$fill, ",")))
-    if (input$legend)
+    if (!(input$fill == "")) {
+      ll$fills$fill <- gsub(
+        "^\\s+|\\s+$",
+        "",
+        unlist(strsplit(input$fill, ","))
+      )
+    }
+    if (input$legend) {
       ll$legend <- list(side = input$legend_side)
+    }
     ll$labels$font <- switch(
       input$font,
       Plain = 1,
@@ -148,7 +158,7 @@ shinyServer(function(input, output, session) {
 
   # Download the plot
   output$download_plot <- downloadHandler(
-    filename = function(){
+    filename = function() {
       paste0("euler-", Sys.Date(), ".", input$savetype)
     },
     content = function(file) {
