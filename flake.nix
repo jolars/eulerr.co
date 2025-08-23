@@ -24,6 +24,7 @@
                 rsconnect
                 tidyverse
                 eulerr
+                languageserver
               ];
             })
           ];
