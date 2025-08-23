@@ -12,8 +12,10 @@ shinyUI(
           column(
             3,
             wellPanel(
-              p("String together combinations by joining them
-                with an ampersand (&)."),
+              p(
+                "String together combinations by joining them
+                with an ampersand (&)."
+              ),
               splitLayout(
                 cellWidths = c("70%", "30%"),
                 textInput("combo_1", NULL, "A"),
@@ -80,12 +82,18 @@ shinyUI(
           column(
             3,
             strong("Colors"),
-            em(p("A comma-separated list of ",
-              a(href = "https://stat.columbia.edu/~tzheng/files/Rcolor.pdf",
-                "x11"),
+            em(p(
+              "A comma-separated list of ",
+              a(
+                href = "https://stat.columbia.edu/~tzheng/files/Rcolor.pdf",
+                "x11"
+              ),
               "or",
-              a(href = "https://en.wikipedia.org/wiki/Web_colors#Hex_triplet",
-                "hex colors."))),
+              a(
+                href = "https://en.wikipedia.org/wiki/Web_colors#Hex_triplet",
+                "hex colors."
+              )
+            )),
             textInput(
               inputId = "fill",
               label = NULL,
@@ -134,8 +142,14 @@ shinyUI(
               width = "100%"
             ),
             checkboxInput("quantities", "Show quantities"),
-            sliderInput("alpha", "Opacity", min = 0, max = 1, value = 1,
-              width = "100%"),
+            sliderInput(
+              "alpha",
+              "Opacity",
+              min = 0,
+              max = 1,
+              value = 1,
+              width = "100%"
+            ),
             hr(),
             fluidRow(
               column(
@@ -195,7 +209,10 @@ shinyUI(
               "optimization routines."
             ),
             p(
-              a(href = "https://en.wikipedia.org/wiki/Euler_diagram", "Euler diagrams"),
+              a(
+                href = "https://en.wikipedia.org/wiki/Euler_diagram",
+                "Euler diagrams"
+              ),
               "are generalized venn diagrams for which the requirement that",
               "all intersections be present is relaxed. They are constructed",
               "from a specification of set relationships but may sometimes",
@@ -247,7 +264,8 @@ shinyUI(
               tags$code('install.packages("eulerr")', .noWS = "outside"),
               "."
             ),
-            p("To read more about the R package, please visit",
+            p(
+              "To read more about the R package, please visit",
               a(
                 " the package page on CRAN",
                 href = "https://CRAN.R-project.org/package=eulerr",
@@ -295,7 +313,3 @@ shinyUI(
     )
   )
 )
-
-
-
-
