@@ -21,6 +21,7 @@
             (pkgs.rWrapper.override {
               packages = with pkgs.rPackages; [
                 shiny
+                bslib
                 rsconnect
                 tidyverse
                 eulerr
