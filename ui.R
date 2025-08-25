@@ -303,10 +303,31 @@ shinyUI(
             offset = 3,
             h1("Citation"),
             p("To cite eulerr in publications, please use"),
-            htmlOutput("cit"),
+            p(
+              "Larsson, J., & Gustafsson, P. (2018). A case study in fitting",
+              "area-proportional Euler diagrams with ellipses using eulerr.",
+              "Proceedings of International Workshop on Set Visualization and",
+              "Reasoning, 2116, 84–91.",
+              a(
+                "http://ceur-ws.org/Vol-2116/paper7.pdf",
+                href = "http://ceur-ws.org/Vol-2116/paper7.pdf"
+              )
+            ),
             br(),
             p("A BibTeX entry for LaTeX users is"),
-            verbatimTextOutput("bib")
+            pre(
+              "@inproceedings{larssonCaseStudyFitting2018,
+  title = {A Case Study in Fitting Area-Proportional {{Euler}} Diagrams with Ellipses Using Eulerr},
+  booktitle = {Proceedings of International Workshop on Set Visualization and Reasoning},
+  author = {Larsson, Johan and Gustafsson, Peter},
+  year = {2018},
+  month = jun,
+  volume = {2116},
+  pages = {84--91},
+  publisher = {CEUR workshop proceedings},
+  address = {Edinburgh, United Kingdom}
+}"
+            ),
           )
         )
       )
